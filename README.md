@@ -24,13 +24,15 @@ __2. Bufferbloat can occur in other places such as your network interface card (
 
 __3.How does the RTT reported by ping vary with the queue size? Write a symbolic equation to describe the relation between the two (ignore computation overheads in ping that might affect the final result).__
 
-    answer goes here
+    K = ~2.5 (constant based on our graphs)
+    RTT = Queue Size * K
+    RTT is directly correlated with Queue Size
 
 __4.Identify and describe two ways to mitigate the bufferbloat problem.__
 
 - Utilizing queue management algorithms for fixing the drop tail problem in case of bursty flows by dropping packets before the queue gets full.
 
-- something else
+- According to our experiment, we can also reduce the maximum buffer size to decrease the overall latency. It seems as though having multiple smaller buffers is a great way to mitigate the bufferbloat problem.
 
 
 
