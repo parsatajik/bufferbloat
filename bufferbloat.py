@@ -176,7 +176,8 @@ def get_avg_time(net, h1, h2):
         # TODO: check if this is correct
         cmd = "curl -o /dev/null -s -w %%{time_total} %s/http/index.html" % (h1.IP())
         # get current time
-        curr_time = h2.popen(cmd).communicate()[0]
+        res = h2.popen(cmd, shell=True, stdout=PIPE)
+        curr_time = float(res.stdout.read())
         times.append(curr_time)
         
     # return the avg of our three fetches
