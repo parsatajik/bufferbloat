@@ -165,7 +165,7 @@ def start_ping(net):
     ping = h1.popen(
         "ping -c %s -i 0.1 %s > %s/ping.txt"%
         (time*10, h2.IP(), args.dir), 
-        shell=True)
+        shell=True).communicate()
 
 def bufferbloat():
     if not os.path.exists(args.dir):
