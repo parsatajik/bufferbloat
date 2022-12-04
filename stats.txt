@@ -1,0 +1,2 @@
+Latency Average: 0.178744791667 
+Latency Standard Deviation: 0.0321952993349 
