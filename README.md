@@ -5,7 +5,10 @@ This assignment was written by Parsa Tajik in December of 2022.
 
 Setup Instructions
 ---
+While in the assignment's directory, enter the following commands in your terminal to clear mininet and start the testing process:
 
+    sudo mn -c
+    sudo ./run.sh
 
 Questions
 ---
@@ -25,7 +28,9 @@ __3.How does the RTT reported by ping vary with the queue size? Write a symbolic
 
 __4.Identify and describe two ways to mitigate the bufferbloat problem.__
 
-    answer goes here
+- Utilizing queue management algorithms for fixing the drop tail problem in case of bursty flows by dropping packets before the queue gets full.
+
+- something else
 
 
 
