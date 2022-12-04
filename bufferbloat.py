@@ -166,19 +166,6 @@ def start_ping(net):
         (h2.IP(), args.dir), 
         shell=True)
 
-def get_avg_time(net, h1, h2):
-    times = []
-    for i in range(3):
-        # construct fetch command
-        # TODO: check if this is correct
-        cmd = "curl -o /dev/null -s -w %%{time_total} %s/http/index.html" % (h1.IP())
-        # get current time
-        curr_time = h2.popen(cmd).communicate()[0]
-        times.append(float(curr_time))
-        
-    # return the avg of our three fetches
-    return helper.avg(times)
-
 def bufferbloat():
     if not os.path.exists(args.dir):
         os.makedirs(args.dir)
@@ -233,10 +220,12 @@ def bufferbloat():
     # hosts
     h1 = net.get("h1")
     h2 = net.get("h2")
+    cmd = "curl -o /dev/null -s -w %%{time_total} %s/http/index.html" % (h1.IP())
     while True:
         # do the measurement (say) 3 times.
-        curr_stat = get_avg_time(net, h1, h2)
-        stats.append(curr_stat)
+        for i in range(3):
+            curr_time = h2.popen(cmd).communicate()[0]
+            stats.append(float(curr_time))
         
         sleep(1)
         now = time()
