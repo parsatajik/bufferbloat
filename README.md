@@ -15,7 +15,7 @@ Questions
 
 __1. Why do you see a difference in webpage fetch times with small and large router buffers?__
 
-    Our varied fetch times are a result of different buffer sizes and TCP's packet loss detection algorithm. When travelling from h1 to h2, the Ppackets are bottlenecked by the slower link and forced to wait in the buffer.
+    Our varied fetch times are a result of different buffer sizes and TCP's packet loss detection algorithm. When travelling from h1 to h2, the packets are bottlenecked by the slower link and forced to wait in the buffer. TCP continues to increase CWND and 
 
 
 __2. Bufferbloat can occur in other places such as your network interface card (NIC). Check the output of ifconfig eth0 on your VirtualBox VM. What is the (maximum) transmit queue length on the network interface reported by ifconfig? For this queue size and a draining rate of 100 Mbps, what is the maximum time a packet might wait in the queue before it leaves the NIC?__

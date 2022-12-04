@@ -224,12 +224,10 @@ def bufferbloat():
     cmd = "curl -o /dev/null -s -w %%{time_total} %s/http/index.html" % (h1.IP())
     while True:
         # do the measurement (say) 3 times.
-        times = []
         for i in range(3):
             curr_time = h2.popen(cmd).communicate()[0]
-            times.append(float(curr_time))
+            stats.append(float(curr_time))
         
-        stats.append(helper.avg(times))
         sleep(1)
         now = time()
         delta = now - start_time
