@@ -174,7 +174,7 @@ def get_avg_time(net, h1, h2):
     for i in range(3):
         # construct fetch command
         # TODO: check if this is correct
-        cmd = "curl -o /dev/null -s -w %{time_total} %s/http/index.html" % (h1.IP())
+        cmd = "curl -o index.html -s -w %%{time_total} %s/http/index.html" % (h1.IP())
         # get current time
         curr_time = h2.popen(cmd).communicate()[0]
         times.append(curr_time)
