@@ -94,7 +94,7 @@ class BBTopo(Topo):
         maxq = args.maxq
 
         # Establish link between home computer (h1) and router
-        self.addLink(h1, switch, bw=bwHost, delay='%dms'%delay)
+        self.addLink(h1, switch, bw=bwHost, delay='%dms'%delay, max_queue_size=maxq)
 
         # Establish link between router and h2 (bottleneck)
         self.addLink(switch, h2, bw=bwNet, delay='%dms'%delay, max_queue_size=maxq)
@@ -159,11 +159,12 @@ def start_ping(net):
     # hosts
     h1 = net.get('h1')
     h2 = net.get('h2')
+    time = args.time
 
     # TODO: if graphs as not looking correct, try chaging -c to -w
-    popen = h1.popen(
-        "ping -i 0.1 %s > %s/ping.txt"%
-        (h2.IP(), args.dir), 
+    ping = h1.popen(
+        "ping -c %s -i 0.1 %s > %s/ping.txt"%
+        (time*10, h2.IP(), args.dir), 
         shell=True)
 
 def bufferbloat():
