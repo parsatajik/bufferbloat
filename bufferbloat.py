@@ -162,12 +162,9 @@ def start_ping(net):
 
     # TODO: if graphs as not looking correct, try chaging -c to -w
     popen = h1.popen(
-        "ping -c %d -i 0.1 %s > %s/ping.txt"%
-        (args.time*10, h2.IP(), args.dir), 
+        "ping -i 0.1 %s > %s/ping.txt"%
+        (h2.IP(), args.dir), 
         shell=True)
-
-    # block until stdout is read
-    popen.communicate()
 
 def get_avg_time(net, h1, h2):
     times = []
@@ -176,9 +173,8 @@ def get_avg_time(net, h1, h2):
         # TODO: check if this is correct
         cmd = "curl -o /dev/null -s -w %%{time_total} %s/http/index.html" % (h1.IP())
         # get current time
-        res = h2.popen(cmd, shell=True, stdout=PIPE)
-        curr_time = float(res.stdout.read())
-        times.append(curr_time)
+        curr_time = h2.popen(cmd).communicate()[0]
+        times.append(float(curr_time))
         
     # return the avg of our three fetches
     return helper.avg(times)
@@ -231,13 +227,12 @@ def bufferbloat():
     # Hint: have a separate function to do this and you may find the
     # loop below useful.
     
-    # hosts
-    h1 = net.get("h1")
-    h2 = net.get("h2")
-    
     # params
     stats = []
     start_time = time()
+    # hosts
+    h1 = net.get("h1")
+    h2 = net.get("h2")
     while True:
         # do the measurement (say) 3 times.
         curr_stat = get_avg_time(net, h1, h2)
